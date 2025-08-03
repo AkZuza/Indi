@@ -52,6 +52,7 @@ actual class FilePicker {
         actual suspend fun getSingleFile(): PlatformFile? = singleFileResult
 
         actual suspend fun startFilePicker() {
+            singleFileResult = null
             openDoc.launch(arrayOf("application/pdf"))
             isRunning = true
             while (isRunning);
