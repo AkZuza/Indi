@@ -57,7 +57,7 @@ fun Splash(
 
             // navigate to the correct page
 
-            val goToHome = false
+            val goToHome = true
 
             if(goToHome) {
                 navigateToHome()
