@@ -98,6 +98,7 @@ android {
 }
 
 dependencies {
+    ksp(libs.androidx.room.compiler)
     debugImplementation(compose.uiTooling)
 }
 

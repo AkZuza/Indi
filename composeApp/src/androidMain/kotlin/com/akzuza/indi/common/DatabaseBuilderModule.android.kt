@@ -8,7 +8,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 actual fun databaseBuilderModule(): Module = module {
-    single {
+    single<AppDatabase> {
         val context = androidContext()
         val dbFile = context.getDatabasePath("indi.db")
         Room.databaseBuilder<AppDatabase>(

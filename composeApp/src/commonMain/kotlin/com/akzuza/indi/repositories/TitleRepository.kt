@@ -8,7 +8,7 @@ interface TitleRepository {
     suspend fun removeTitle(title: Title)
     fun getAllTitles(): Flow<List<Title>>
     fun getTitle(
-        titleId: UInt? = null,
+        titleId: Long? = null,
         title: String? = null,
     ): Flow<Title?>
 }

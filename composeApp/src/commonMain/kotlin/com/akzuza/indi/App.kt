@@ -2,6 +2,7 @@ package com.akzuza.indi
 
 import androidx.compose.runtime.*
 import com.akzuza.indi.common.databaseBuilderModule
+import com.akzuza.indi.modules.daosModule
 import com.akzuza.indi.modules.repositoriesModule
 import com.akzuza.indi.modules.viewModelsModule
 import com.akzuza.indi.viewmodels.AppViewModel
@@ -21,7 +22,8 @@ fun App() {
             modules(
                 viewModelsModule,
                 repositoriesModule,
-                databaseBuilderModule()
+                databaseBuilderModule(),
+                daosModule
             )
         }
     ) {

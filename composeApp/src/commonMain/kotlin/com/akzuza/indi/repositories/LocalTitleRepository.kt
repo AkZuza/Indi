@@ -35,7 +35,7 @@ class LocalTitleRepository : TitleRepository {
     override fun getAllTitles(): Flow<List<Title>> = titles
 
     override fun getTitle(
-        titleId: UInt?,
+        titleId: Long?,
         title: String?
     ): Flow<Title?> = flow {
         emit (if(titleId != null) titles.value.find { titleId == it.title_id }
