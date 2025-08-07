@@ -34,7 +34,9 @@ class HomeViewModel: ViewModel(), KoinComponent {
 
     fun addTitle(title: Title) {
         viewModelScope.launch {
-            _titlesRepo.addTitle(title)
+            if (_titlesRepo.getTitleByName(title.title) == null) {
+                _titlesRepo.addTitle(title)
+            }
         }
     }
 

@@ -43,4 +43,8 @@ class LocalTitleRepository : TitleRepository {
         else null)
     }
 
+    override suspend fun getTitleByName(title: String): Title? {
+        return null
+    }
+
 }

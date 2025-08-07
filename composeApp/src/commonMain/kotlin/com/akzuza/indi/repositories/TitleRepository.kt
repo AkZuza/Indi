@@ -11,4 +11,8 @@ interface TitleRepository {
         titleId: Long? = null,
         title: String? = null,
     ): Flow<Title?>
+
+    suspend fun getTitleByName(
+        title: String
+    ): Title?
 }

@@ -11,13 +11,9 @@ class RoomTitleRepository (
     private val titleDao: TitleDao
 ): TitleRepository {
 
-    override suspend fun addTitle(title: Title) {
-        titleDao.add(title)
-    }
+    override suspend fun addTitle(title: Title) = titleDao.add(title)
 
-    override suspend fun removeTitle(title: Title) {
-        titleDao.delete(title)
-    }
+    override suspend fun removeTitle(title: Title) = titleDao.delete(title)
 
     override fun getAllTitles(): Flow<List<Title>> = titleDao.getAll()
 
@@ -25,4 +21,6 @@ class RoomTitleRepository (
         titleId: Long?,
         title: String?
     ): Flow<Title?> = emptyFlow()
+
+    override suspend fun getTitleByName(title: String): Title? = titleDao.getByTitle(title)
 }
