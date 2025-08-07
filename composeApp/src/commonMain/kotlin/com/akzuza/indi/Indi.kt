@@ -2,29 +2,35 @@ package com.akzuza.indi
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.akzuza.indi.common.PlatformNavigation
 import com.akzuza.indi.data.NavRoutes
 import com.akzuza.indi.screens.home.IndiHome
 import com.akzuza.indi.screens.login.LoginScreen
+import com.akzuza.indi.screens.reader.ReaderScreen
 import com.akzuza.indi.screens.splash.Splash
 import com.akzuza.indi.viewmodels.AppViewModel
 import com.akzuza.indi.viewmodels.HomeViewModel
+import com.akzuza.indi.viewmodels.ReaderViewModel
 import org.koin.compose.koinInject
 import org.koin.core.context.startKoin
 
 @Composable
 fun Indi(
-    viewModel: AppViewModel = koinInject<AppViewModel>(),
-    homeViewModel: HomeViewModel = koinInject<HomeViewModel>()
+    viewModel: AppViewModel = koinInject(),
+    homeViewModel: HomeViewModel = koinInject(),
+    readerViewModel: ReaderViewModel = koinInject()
 ) {
 
-    val backstack = viewModel.backstack
+    val backstackState by viewModel.backstack.collectAsStateWithLifecycle()
     val homeState by homeViewModel.uiState.collectAsStateWithLifecycle()
+    val readerState by readerViewModel.uiState.collectAsStateWithLifecycle()
+
 
     IndiTheme {
         PlatformNavigation(
-            backstack = backstack,
+            backstack = backstackState.toMutableList(),
             splashScreen = {
                 Splash(
                     navigateToHome = {
@@ -48,8 +54,29 @@ fun Indi(
                 IndiHome(
                     state = homeState,
                     addTitle = homeViewModel::addTitle,
-                    removeTitle = homeViewModel::removeTitle
+                    removeTitle = homeViewModel::removeTitle,
+                    openReader = { it ->
+                        viewModel.navigateTo(NavRoutes.ReaderScreen(it))
+                    }
                 )
+            },
+
+            readerScreen = {
+                val route = backstackState.last() as? NavRoutes.ReaderScreen
+
+                if (route != null) {
+                    if (route.titleId != null) {
+                        readerViewModel.loadTitle(route.titleId)
+                    }
+                }
+
+                ReaderScreen(
+                    readerState = readerState
+                )
+            },
+
+            onBack = {
+                viewModel.goBack()
             }
         )
     }
