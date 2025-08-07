@@ -6,9 +6,6 @@ import com.akzuza.indi.common.FilePicker
 import com.akzuza.indi.viewmodels.AppViewModel
 import com.akzuza.indi.viewmodels.HomeViewModel
 
-private val appViewModel = AppViewModel()
-private val homeViewModel = HomeViewModel()
-
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
@@ -16,9 +13,6 @@ fun main() = application {
     ) {
         FilePicker.init(this.window)
 
-        Indi(
-            appViewModel,
-            homeViewModel
-        )
+        App()
     }
 }

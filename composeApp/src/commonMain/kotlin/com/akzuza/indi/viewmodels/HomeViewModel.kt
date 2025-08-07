@@ -4,17 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akzuza.indi.data.Title
 import com.akzuza.indi.repositories.LocalTitleRepository
+import com.akzuza.indi.repositories.TitleRepository
 import com.akzuza.indi.states.IndiHomeState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class HomeViewModel(
+class HomeViewModel: ViewModel(), KoinComponent {
 
-) : ViewModel() {
-
-    private val _titlesRepo = LocalTitleRepository()
+    private val _titlesRepo: TitleRepository  by inject()
 
     private var _uiState: MutableStateFlow<IndiHomeState> = MutableStateFlow(IndiHomeState())
     val uiState: StateFlow<IndiHomeState> = _uiState

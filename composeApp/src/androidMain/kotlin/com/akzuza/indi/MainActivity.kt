@@ -27,14 +27,7 @@ class MainActivity : ComponentActivity() {
         FilePicker.init(this)
 
         setContent {
-
-            val appViewModel = viewModel<AppViewModel>()
-            val homeViewModel = viewModel<HomeViewModel>()
-
-            Indi(
-                viewModel = appViewModel,
-                homeViewModel = homeViewModel
-            )
+            App()
         }
     }
 }

@@ -10,11 +10,13 @@ import com.akzuza.indi.screens.login.LoginScreen
 import com.akzuza.indi.screens.splash.Splash
 import com.akzuza.indi.viewmodels.AppViewModel
 import com.akzuza.indi.viewmodels.HomeViewModel
+import org.koin.compose.koinInject
+import org.koin.core.context.startKoin
 
 @Composable
 fun Indi(
-    viewModel: AppViewModel,
-    homeViewModel: HomeViewModel
+    viewModel: AppViewModel = koinInject<AppViewModel>(),
+    homeViewModel: HomeViewModel = koinInject<HomeViewModel>()
 ) {
 
     val backstack = viewModel.backstack
