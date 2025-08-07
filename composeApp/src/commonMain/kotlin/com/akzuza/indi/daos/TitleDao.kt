@@ -14,6 +14,9 @@ interface TitleDao {
     @Query("SELECT * FROM titles")
     fun getAll(): Flow<List<Title>>
 
+    @Query("SELECT * FROM titles WHERE title = :title")
+    suspend fun getByTitle(title: String): Title?
+
     @Query("SELECT * FROM titles WHERE title_id = :title_id")
     suspend fun getOne(title_id: Long): Title?
 
