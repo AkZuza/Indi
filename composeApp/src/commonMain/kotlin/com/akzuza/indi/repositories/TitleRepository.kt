@@ -15,4 +15,6 @@ interface TitleRepository {
     suspend fun getTitleByName(
         title: String
     ): Title?
+
+    suspend fun getTitleById(titleId: Long): Title?
 }

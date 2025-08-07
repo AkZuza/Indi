@@ -23,4 +23,5 @@ class RoomTitleRepository (
     ): Flow<Title?> = emptyFlow()
 
     override suspend fun getTitleByName(title: String): Title? = titleDao.getByTitle(title)
+    override suspend fun getTitleById(titleId: Long): Title? = titleDao.getOne(titleId)
 }

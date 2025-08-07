@@ -47,4 +47,8 @@ class LocalTitleRepository : TitleRepository {
         return null
     }
 
+    override suspend fun getTitleById(titleId: Long): Title? {
+        return null
+    }
+
 }
