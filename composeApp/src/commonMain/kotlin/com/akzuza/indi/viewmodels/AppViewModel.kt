@@ -7,7 +7,7 @@ import com.akzuza.indi.data.NavRoutes
 
 class AppViewModel : ViewModel() {
 
-    private var _backstack: MutableList<NavRoutes> = mutableStateListOf(NavRoutes.SplashScreen)
+    private var _backstack: MutableList<NavRoutes> = mutableStateListOf(NavRoutes.HomeScreen)
     val backstack: MutableList<NavRoutes> = _backstack
 
     fun navigateTo(route: NavRoutes) {

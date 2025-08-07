@@ -31,15 +31,9 @@ actual fun PlatformNavigation(
     backstack: MutableList<NavRoutes>,
 ) {
     val navigationController = rememberNavController()
-    var selectedDestination by remember { mutableIntStateOf(0) }
-    val destinations = listOf(
-        NavRoutes.HomeScreen,
-
-    )
-    val isLoggedIn = true
 
     NavHost(
-        navController = navigationController, startDestination = if (isLoggedIn) NavRoutes.HomeScreen else NavRoutes.LoginScreen
+        navController = navigationController, startDestination = NavRoutes.HomeScreen
     ) {
         composable<NavRoutes.LoginScreen> {
             loginScreen()
