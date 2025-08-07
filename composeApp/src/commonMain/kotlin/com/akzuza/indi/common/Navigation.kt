@@ -15,6 +15,7 @@ expect fun PlatformNavigation(
     loginScreen: @Composable () -> Unit = {},
     readerScreen: @Composable () -> Unit = {},
     settingsScreen: @Composable () -> Unit = {},
+    onBack: () -> Unit,
     backstack: MutableList<NavRoutes> = emptyList<NavRoutes>().toMutableStateList(),
 )
 

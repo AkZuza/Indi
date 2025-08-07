@@ -28,6 +28,7 @@ actual fun PlatformNavigation(
     loginScreen: @Composable () -> Unit,
     readerScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
+    onBack: () -> Unit,
     backstack: MutableList<NavRoutes>,
 ) {
     val navigationController = rememberNavController()
