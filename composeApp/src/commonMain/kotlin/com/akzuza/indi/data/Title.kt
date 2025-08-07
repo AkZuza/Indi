@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "titles")
 data class Title(
-    @PrimaryKey val title_id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val title_id: Long = 0,
     val title: String,
     val total_pages: Long = 0,
     val current_page: Long = 0,
