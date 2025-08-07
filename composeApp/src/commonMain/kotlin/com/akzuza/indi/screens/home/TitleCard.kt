@@ -49,34 +49,35 @@ fun TitleCard(
 
     OutlinedCard(
         modifier = Modifier.fillMaxSize()
-            .combinedClickable(
-                onLongClick = {
-                    showExtraMenu = true
-                },
-                hapticFeedbackEnabled = true,
-                onClick = {
-                    openReader()
-                }
-            )
-            .pointerInput(
-                Unit
-            ) {
-                awaitPointerEventScope {
-                    while (true) {
-                        val event = awaitPointerEvent()
-                        if (event.type == PointerEventType.Press && event.buttons.isSecondaryPressed) {
-                            showExtraMenu = true
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .combinedClickable(
+                    onLongClick = {
+                        showExtraMenu = true
+                    },
+                    hapticFeedbackEnabled = true,
+                    onClick = {
+                        openReader()
+                    }
+                )
+                .pointerInput(
+                    Unit
+                ) {
+                    awaitPointerEventScope {
+                        while (true) {
+                            val event = awaitPointerEvent()
+                            if (event.type == PointerEventType.Press && event.buttons.isSecondaryPressed) {
+                                showExtraMenu = true
+                            }
                         }
                     }
                 }
-            }
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize().padding(12.dp)
+                .padding(12.dp)
         ) {
             Row {
                 Text(
-                    "$friendlyTitle",
+                    friendlyTitle,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
