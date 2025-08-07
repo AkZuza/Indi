@@ -76,11 +76,15 @@ fun TitleCard(
                 .padding(12.dp)
         ) {
             Row {
-                Text(
-                    friendlyTitle,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
+                Column {
+                    Text(
+                        friendlyTitle,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
+                    Text("Total pages: ${title.total_pages}")
+                }
 
                 Box (
                     modifier = Modifier.width(20.dp)

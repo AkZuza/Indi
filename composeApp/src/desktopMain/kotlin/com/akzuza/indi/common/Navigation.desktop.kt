@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material.NavigationRail
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -32,6 +33,10 @@ actual fun PlatformNavigation(
     backstack: MutableList<NavRoutes>,
 ) {
     val navigationController = rememberNavController()
+
+    LaunchedEffect(backstack) {
+        navigationController.navigate(backstack.last())
+    }
 
     NavHost(
         navController = navigationController, startDestination = NavRoutes.HomeScreen

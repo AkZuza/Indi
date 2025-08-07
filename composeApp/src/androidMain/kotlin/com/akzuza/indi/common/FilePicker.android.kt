@@ -1,14 +1,20 @@
 package com.akzuza.indi.common
 
 import android.content.Intent
+import android.graphics.pdf.PdfRenderer
+import android.net.Uri
 import android.os.Build
 import android.os.CancellationSignal
+import android.os.Parcel
+import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.core.net.toFile
+import androidx.core.net.toUri
 import com.akzuza.indi.MainActivity
+import com.akzuza.indi.data.Title
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.io.File
@@ -18,6 +24,7 @@ actual class FilePicker {
 
         @RequiresApi(Build.VERSION_CODES.Q)
         fun init(activity: MainActivity) {
+            this.activity = activity
             val contentResolver = activity.contentResolver
 
             openDoc = activity.registerForActivityResult(
@@ -58,6 +65,30 @@ actual class FilePicker {
             while (isRunning);
         }
 
+        @RequiresApi(Build.VERSION_CODES.Q)
+        actual suspend fun analyzeAndFillPdfTitle(title: Title): Title {
+            val uri = title.uri
+            val contentResolver = activity.contentResolver
+            val parcel = contentResolver.openFile(uri.toUri(), "r", null)
+
+            if(parcel == null) return title
+
+            val renderer = createPdfRenderer(parcel)
+            val newTitle = title.copy(
+                total_pages = renderer?.pageCount?.toLong() ?: 0
+            )
+            renderer?.close()
+            parcel.close()
+
+            return newTitle
+        }
+
+        @RequiresApi(Build.VERSION_CODES.Q)
+        fun createPdfRenderer(parcel: ParcelFileDescriptor): PdfRenderer? {
+            val renderer = PdfRenderer(parcel)
+            return renderer
+        }
+
         // Results
         private var singleFileResult: PlatformFile? = null
         private var isRunning = false
@@ -65,6 +96,7 @@ actual class FilePicker {
 
         // Contracts
         private lateinit var openDoc: ActivityResultLauncher<Array<String>>
+
 
     }
 }

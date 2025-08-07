@@ -2,10 +2,13 @@ package com.akzuza.indi.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akzuza.indi.common.FilePicker
 import com.akzuza.indi.data.Title
 import com.akzuza.indi.repositories.LocalTitleRepository
 import com.akzuza.indi.repositories.TitleRepository
 import com.akzuza.indi.states.IndiHomeState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -33,9 +36,22 @@ class HomeViewModel: ViewModel(), KoinComponent {
     }
 
     fun addTitle(title: Title) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            // update UI to adding
+            _uiState.update {
+                it.copy(addingTitle = title.title)
+            }
+
+            val newTitle = FilePicker.analyzeAndFillPdfTitle(title)
+
             if (_titlesRepo.getTitleByName(title.title) == null) {
-                _titlesRepo.addTitle(title)
+                _titlesRepo.addTitle(newTitle)
+            }
+
+            // Finished adding
+            _uiState.update {
+                it.copy(addingTitle = "")
             }
         }
     }

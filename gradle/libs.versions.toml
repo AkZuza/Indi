@@ -23,6 +23,7 @@ navigation = "2.9.0-beta04"
 material-icons = "1.7.3"
 koin-version = "4.1.0"
 room-version = "2.7.2"
+sqlite = "2.5.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -52,6 +53,7 @@ androidx-room = { module = "androidx.room:room-runtime", version.ref = "room-ver
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room-version" }
 androidx-room-gradle-plugin = { module = "androidx.room:room-gradle-plugin", version.ref = "room-version" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room-version" }
+androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref="sqlite"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
