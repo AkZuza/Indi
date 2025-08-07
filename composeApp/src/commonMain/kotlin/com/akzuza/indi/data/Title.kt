@@ -1,7 +1,11 @@
 package com.akzuza.indi.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "titles")
 data class Title(
-    val title_id: UInt,
+    @PrimaryKey val title_id: UInt,
     val title: String,
     val total_pages: UInt = 0U,
     val current_page: UInt = 0U,
