@@ -117,8 +117,8 @@ fun IndiHome(
                             if (searchFilter.isNotEmpty()) {
                                 IconButton(
                                     onClick = {
-                                        searchFilter = ""
                                         expanded = false
+                                        searchFilter = ""
                                     }
                                 ) {
                                     Icon(Icons.Default.Clear, contentDescription = null)
@@ -154,12 +154,16 @@ fun IndiHome(
                             modifier = Modifier.fillMaxWidth(),
                             state = lazyListState,
                             verticalArrangement = Arrangement.spacedBy(8.dp),
-                            contentPadding = PaddingValues(all = 8.dp)
+                            contentPadding = PaddingValues(horizontal = 4.dp)
                         ) {
 
                             items(filteredTitles.size) { i ->
                                 val title = filteredTitles[i]
-
+                                TitleSearchItem(
+                                    title = title,
+                                    openReader = {},
+                                    openDetails = {}
+                                )
                             }
                         }
 
