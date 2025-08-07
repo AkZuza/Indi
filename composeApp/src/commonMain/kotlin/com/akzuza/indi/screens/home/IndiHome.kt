@@ -15,15 +15,12 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Button
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -39,18 +36,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.akzuza.indi.common.FilePicker
-import com.akzuza.indi.common.PlatformFile
 import com.akzuza.indi.common.PlatformVerticalScrollBar
 import com.akzuza.indi.data.Title
 import com.akzuza.indi.states.IndiHomeState
 import com.akzuza.indi.ui.IndiFloatingActionButton
 import com.akzuza.indi.ui.IndiSurfaceText
-import com.akzuza.indi.ui.IndiTextField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import kotlin.math.exp
 
 private val searchBarShape = RoundedCornerShape(15.dp)
 
@@ -59,7 +52,8 @@ private val searchBarShape = RoundedCornerShape(15.dp)
 fun IndiHome(
     state: IndiHomeState,
     addTitle: (Title) -> Unit,
-    removeTitle: (Title) -> Unit
+    removeTitle: (Title) -> Unit,
+    openReader: (Long) -> Unit
 ) {
 
     val titles = state.titles
@@ -160,7 +154,7 @@ fun IndiHome(
                                 val title = filteredTitles[i]
                                 TitleSearchItem(
                                     title = title,
-                                    openReader = {},
+                                    openReader = { openReader(title.title_id) },
                                     openDetails = {}
                                 )
                             }
@@ -191,7 +185,7 @@ fun IndiHome(
                         TitleCard(
                             title,
                             openReader = {
-
+                                openReader(title.title_id)
                             },
 
                             removeTitle = {
