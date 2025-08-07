@@ -21,6 +21,7 @@ kotlinSerialization = "2.1.21"
 kotlinxSerializationCore = "1.8.1"
 navigation = "2.9.0-beta04"
 material-icons = "1.7.3"
+koin-version = "4.1.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,6 +42,11 @@ androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecy
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigation" }
 jetbrains-material-icons = { module = "org.jetbrains.compose.material:material-icons-core", version.ref = "material-icons" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-version" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-version" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-version" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin-version" }
+koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin-version" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
