@@ -38,17 +38,12 @@ fun ReaderScreen(
     val bitmaps = readerState.bitmaps
     val startPage = readerState.title.current_page
     val lazyList = rememberLazyListState()
-    val scope = rememberCoroutineScope()
-
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { paddingValues ->
         Column (
             modifier = Modifier.fillMaxSize().padding(paddingValues)
         ) {
-            Text(readerState.title.title)
-            Text("Total pages: ${readerState.bitmaps.size}")
-            Text("Current page: ${lazyList.firstVisibleItemIndex}")
 
             PdfReaderView(
                 startPage,
@@ -66,7 +61,7 @@ fun ReaderScreen(
     }
 
     LaunchedEffect(readerState.bitmaps.size) {
-        if(readerState.bitmaps.size >= startPage) {
+        if(readerState.bitmaps.size >= startPage && lazyList.firstVisibleItemIndex == 0) {
             lazyList.scrollToItem(startPage.toInt())
         }
     }
