@@ -17,4 +17,6 @@ interface TitleRepository {
     ): Title?
 
     suspend fun getTitleById(titleId: Long): Title?
+
+    suspend fun updateTitle(title: Title)
 }

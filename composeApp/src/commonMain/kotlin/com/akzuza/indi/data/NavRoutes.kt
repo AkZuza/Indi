@@ -14,5 +14,5 @@ sealed interface NavRoutes {
     @Serializable
     object SettingsScreen: NavRoutes
     @Serializable
-    data class ReaderScreen(val titleId: Long? = null): NavRoutes
+    data class ReaderScreen(val titleId: Long): NavRoutes
 }

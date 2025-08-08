@@ -51,4 +51,8 @@ class LocalTitleRepository : TitleRepository {
         return null
     }
 
+    override suspend fun updateTitle(title: Title) {
+        TODO("Not yet implemented")
+    }
+
 }

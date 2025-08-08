@@ -63,16 +63,15 @@ fun Indi(
 
             readerScreen = {
                 val route = backstackState.last() as? NavRoutes.ReaderScreen
-
-                if (route != null) {
-                    if (route.titleId != null) {
-                        readerViewModel.loadTitle(route.titleId)
-                    }
+                if(route != null ) {
+                    ReaderScreen(
+                        titleId = route.titleId,
+                        readerState = readerState,
+                        startLoadingTitle = readerViewModel::startLoadingTitle,
+                        loadTitle = { readerViewModel.loadTitle(titleId = route.titleId) },
+                        updateCurrentPage = readerViewModel::updateTitleCurrentPage
+                    )
                 }
-
-                ReaderScreen(
-                    readerState = readerState
-                )
             },
 
             onBack = {

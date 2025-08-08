@@ -24,4 +24,5 @@ class RoomTitleRepository (
 
     override suspend fun getTitleByName(title: String): Title? = titleDao.getByTitle(title)
     override suspend fun getTitleById(titleId: Long): Title? = titleDao.getOne(titleId)
+    override suspend fun updateTitle(title: Title) = titleDao.update(title)
 }

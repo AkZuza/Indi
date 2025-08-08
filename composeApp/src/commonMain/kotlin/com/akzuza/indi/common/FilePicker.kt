@@ -10,5 +10,7 @@ expect class FilePicker {
         suspend fun getSingleFile(): PlatformFile?
         suspend fun startFilePicker()
         suspend fun analyzeAndFillPdfTitle(title: Title): Title
+
+        fun generatePdfBitmaps(title: Title): Flow<ImageBitmap>
     }
 }

@@ -3,17 +3,23 @@ package com.akzuza.indi.screens.reader
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.ImageBitmap
+import com.akzuza.indi.common.FilePicker
 import com.akzuza.indi.data.Title
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import kotlin.math.max
 import kotlin.math.min
 
-class PdfReaderState(title: Title) {
+class PdfReaderState(private val title: Title) {
 
-    init {
-        // Load image data here
-    }
     val totalPageCount = title.total_pages
     var currentPage = title.current_page
         private set
@@ -32,10 +38,21 @@ class PdfReaderState(title: Title) {
         }
         currentPage = page
     }
+
+    suspend fun startLoading() {
+        if(title.uri.isEmpty()) return
+        val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+        coroutineScope.launch {
+            FilePicker.generatePdfBitmaps(title).collect {
+                bitmaps.add(it)
+            }
+        }
+    }
+    var bitmaps = emptyList<ImageBitmap>().toMutableList()
 }
 
 @Composable
 fun rememberPdfReaderState(title: Title): PdfReaderState {
-    var state by rememberSaveable { mutableStateOf(PdfReaderState(title)) }
+    var state by remember { mutableStateOf(PdfReaderState(title)) }
     return state
 }
