@@ -129,7 +129,7 @@ fun TitleCard(
                 Text("Status: $titleStatus")
 
                 val progress = title.current_page
-                Text("Progress: $progress")
+                Text("Progress: ${progress.toInt()}")
             }
         }
     }
