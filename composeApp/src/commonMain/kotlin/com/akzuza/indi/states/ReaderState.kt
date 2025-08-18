@@ -5,5 +5,6 @@ import com.akzuza.indi.data.Title
 
 data class ReaderState(
     val title: Title = Title(title = ""),
-    val bitmaps: List<ImageBitmap> = emptyList()
+    val bitmaps: List<ImageBitmap> = emptyList(),
+    val loading: Boolean = true,
 )

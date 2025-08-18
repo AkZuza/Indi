@@ -41,11 +41,17 @@ class ReaderViewModel: ViewModel(), KoinComponent {
     fun startLoadingTitle(titleId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val title = titleRepository.getTitleById(titleId)
+            _uiState.update {
+                it.copy(
+                    loading = true
+                )
+            }
             if(title != null) {
-                FilePicker.generatePdfBitmaps(title).collect { bitmap ->
+                FilePicker.generatePdfAllBitmaps(title).collect { bitmaps ->
                     _uiState.update {
                         it.copy(
-                            bitmaps = it.bitmaps + bitmap
+                            bitmaps = bitmaps,
+                            loading = false
                         )
                     }
                 }
