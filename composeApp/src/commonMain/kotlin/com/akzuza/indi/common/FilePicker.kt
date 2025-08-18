@@ -12,5 +12,6 @@ expect class FilePicker {
         suspend fun analyzeAndFillPdfTitle(title: Title): Title
 
         fun generatePdfBitmaps(title: Title): Flow<ImageBitmap>
+        fun generatePdfAllBitmaps(title: Title): Flow<List<ImageBitmap>>
     }
 }

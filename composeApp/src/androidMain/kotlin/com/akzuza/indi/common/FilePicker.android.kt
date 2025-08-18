@@ -132,6 +132,34 @@ actual class FilePicker {
             }
         }
 
+        @RequiresApi(Build.VERSION_CODES.Q)
+        actual fun generatePdfAllBitmaps(title: Title): Flow<List<ImageBitmap>> {
+            val contentResolver = contentResolver
+            return flow {
+                val totalCount = title.total_pages
+                val uri = title.uri
+                val parcel = Companion.contentResolver.openFile(uri.toUri(), "r", null)
+                val bitmaps = emptyList<ImageBitmap>().toMutableList()
+                if (parcel != null) {
+                    val renderer = createPdfRenderer(parcel)
+                    for (i in (0 until totalCount)) {
+                        val page = renderer?.openPage(i.toInt())
+                        if(page != null) {
+                            val bitmap = createBitmap(page.width*2, page.height*2)
+                            page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_PRINT)
+
+                            val imageBitmap: ImageBitmap = bitmap.asImageBitmap()
+                            bitmaps.add(imageBitmap)
+                        }
+                    }
+                    renderer?.close()
+                    parcel.close()
+                }
+
+                emit(bitmaps)
+            }
+        }
+
 
         // Results
         private var singleFileResult: PlatformFile? = null
